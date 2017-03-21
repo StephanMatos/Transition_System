@@ -4,7 +4,13 @@ import java.util.ArrayList;
  * Created by Matos on 21-03-2017.
  */
 public class TransitionSystem {
+	
+	public static void main(String[]args){
 
+
+
+
+	}
 
     public TransitionSystem(){
 
@@ -13,13 +19,10 @@ public class TransitionSystem {
 
 
     }
-
-public static void main(String[]args){
-
-
-
-
-}
+    
+    public void printPretty(){
+    	
+    }
 
 
 
