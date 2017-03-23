@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Matos on 21-03-2017.
  */
 public class TransitionSystem {
+
+    public ArrayList<State> transistionsSystem;
 
 	public static void main(String[]args){
 
@@ -14,18 +17,46 @@ public class TransitionSystem {
 
     public TransitionSystem(){
 
-        ArrayList<State> TransistionsSystem = new ArrayList<>();
+        transistionsSystem = new ArrayList<State>();
+        System.out.println(transistionsSystem);
 
-        TransistionsSystem.add(new State(1,true, new String[] {"v"}, new int[] {2}));
-        TransistionsSystem.add(new State(2,false, new String[] {"v"}, new int[] {1,4}));
-        TransistionsSystem.add(new State(3,false, new String[] {"c"}, new int[] {3}));
-        TransistionsSystem.add(new State(4,false, new String[] {"c"}, new int[] {4}));
+        transistionsSystem.add(new State(1,true, new String[] {"v"}, new int[] {2}));
+        transistionsSystem.add(new State(2,false, new String[] {"v"}, new int[] {1,4}));
+        transistionsSystem.add(new State(3,false, new String[] {"c"}, new int[] {3}));
+        transistionsSystem.add(new State(4,false, new String[] {"c"}, new int[] {4}));
+        printPretty(transistionsSystem);
+
+        ArrayList foo = ctlAP(new String[] {"c"});
+        System.out.println(Arrays.deepToString(foo.toArray(new State[foo.size()])));
+        printPretty(foo);
 
 
     }
     
-    public void printPretty(){
-    	
+    public void printPretty(ArrayList<State> arrayList){
+
+        for (State s: arrayList) {
+            System.out.println(s.number + " | "+s.initial+" | "+ Arrays.deepToString(s.strings)+" | "+Arrays.toString(s.integerArray));
+        }
+    }
+
+    public ArrayList ctlAP(String[] AP){
+
+        ArrayList<State> temp = new ArrayList();
+
+        for(State s: transistionsSystem){
+            for(int i = 0; i < s.strings.length; i++){
+                for(int j = 0; j < AP.length; j++){
+
+                    if(s.strings[i].equals(AP[j])){
+                        temp.add(s);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return temp;
     }
 
 
