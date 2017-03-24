@@ -23,8 +23,8 @@ public class TransitionSystem {
 
         transistionsSystem.add(new State(1, true, new String[]{"v"}, new int[]{2}));
         transistionsSystem.add(new State(2, false, new String[]{"v"}, new int[]{1, 4}));
-        transistionsSystem.add(new State(3, false, new String[]{"c"}, new int[]{3}));
-        transistionsSystem.add(new State(4, false, new String[]{"c"}, new int[]{4}));
+        transistionsSystem.add(new State(3, false, new String[]{"c"}, new int[]{4}));
+        transistionsSystem.add(new State(4, false, new String[]{"c"}, new int[]{3}));
         printPretty(transistionsSystem);
 
         ArrayList foo = ctlAP(new String[]{"c"});
@@ -92,20 +92,26 @@ public class TransitionSystem {
     public ArrayList ctlAX(ArrayList<State> stateList){
 
         ArrayList<State> tempList = new ArrayList<>();
-        for (int i = 0; i < transistionsSystem.size(); i++) {
 
+        for (int i = 0; i < transistionsSystem.size(); i++) {
             State temp = transistionsSystem.get(i);
+            boolean[] trueForALL = new boolean[temp.integerArray.length];
+            Arrays.fill(trueForALL, Boolean.FALSE);
             for (State s : stateList) {
+
                 for (int j = 0; j < temp.integerArray.length; j++) {
 
                     if (temp.integerArray[j] == s.number) {
-                        tempList.add(temp);
+                        trueForALL[j] = true;
                         break;
                     }
                 }
             }
-        }
+            if(!Arrays.asList(trueForALL).contains(false)){
+                tempList.add(temp);
+            }
 
+        }
         return tempList;
 
     }
