@@ -40,8 +40,15 @@ public class TransitionSystem {
         for(int i = 0; i < transistionsSystem.size(); i++){
             ArrayList<State> temp = new ArrayList<>();
             temp.add(transistionsSystem.get(i));
-            System.out.println("Vi printer EF for "+ i);
+            System.out.println("Vi printer EF for "+ i+1);
             printPretty(ctlEF(temp));
+        }
+        System.out.println();
+        for(int i = 0; i < transistionsSystem.size(); i++){
+            ArrayList<State> temp = new ArrayList<>();
+            temp.add(transistionsSystem.get(i));
+            System.out.println("Vi printer AG for "+ (i+1));
+            printPretty(ctlAG(temp));
         }
 
 
@@ -133,9 +140,18 @@ public class TransitionSystem {
     }
 
     public ArrayList ctlAG(ArrayList<State> arrayList) {
+        ArrayList<State> result = new ArrayList<>();
+        ArrayList<State> temp = ctlEF(arrayList);
+        for (int i = 0; i < transistionsSystem.size(); i++) {
+            if(temp.contains(transistionsSystem.get(i))) {
 
+            }
+            else {
+                result.add(transistionsSystem.get(i));
+            }
+        }
 
-        return null;
+        return result;
 
     }
 
