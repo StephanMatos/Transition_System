@@ -151,6 +151,7 @@ public class TransitionSystem {
             }
         }
 
+
         return result;
 
     }
