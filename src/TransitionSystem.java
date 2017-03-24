@@ -37,6 +37,14 @@ public class TransitionSystem {
         System.out.println("\n Dette er AX");
         printPretty(ctlAX(foo));
 
+        for(int i = 0; i < transistionsSystem.size(); i++){
+            ArrayList<State> temp = new ArrayList<>();
+            temp.add(transistionsSystem.get(i));
+            System.out.println("Vi printer EF for "+ i);
+            printPretty(ctlEF(temp));
+        }
+
+
 
     }
 
@@ -86,12 +94,18 @@ public class TransitionSystem {
         return tempList;
     }
 
-    public ArrayList ctlEF(ArrayList<String > stateArrayList){
+    public ArrayList ctlEF(ArrayList<State> stateArrayList){
 
+        ArrayList<State> result = new ArrayList<>();
 
-    return null;
+        for(State s : stateArrayList){
+            ArrayList<State> temp = DFS(s,new ArrayList<State>());
+            result.removeAll(temp);
+            result.addAll(temp);
+        }
+
+    return result;
     }
-
 
     public ArrayList ctlAX(ArrayList<State> stateList){
 
@@ -136,13 +150,13 @@ public class TransitionSystem {
 
     public ArrayList<State> DFS(State state, ArrayList<State> visited){
         ArrayList<State> reachable = new ArrayList<>();
+        visited.add(state);
         reachable.add(state);
 
         for(int i = 0; i < state.integerArray.length; i++){
             int stateNo = state.integerArray[i];
             State temp = transistionsSystem.get(stateNo-1);
             if(!visited.contains(temp)){
-                visited.add(temp);
                 reachable.addAll(DFS(temp,visited));
             }
 
