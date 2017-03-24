@@ -1,20 +1,12 @@
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-/**
- * Created by Matos on 21-03-2017.
- */
 public class TransitionSystem {
 
 	public ArrayList<State> transistionsSystem;
 	public ArrayList<State> initialStates;
 
 	public static void main(String[] args) {
-
 		new TransitionSystem();
-
-
 	}
 
 	public TransitionSystem() {
@@ -22,36 +14,64 @@ public class TransitionSystem {
 		transistionsSystem = new ArrayList<State>();
 		initialStates = new ArrayList<State>();
 
-		transistionsSystem.add(new State(1, true, new String[]{"v"}, new int[]{2}));
-		transistionsSystem.add(new State(2, false, new String[]{"v"}, new int[]{1, 4}));
-		transistionsSystem.add(new State(3, false, new String[]{"c"}, new int[]{4}));
-		transistionsSystem.add(new State(4, false, new String[]{"c"}, new int[]{3}));
+		transistionsSystem.add(new State(1, false, new String[]{"c"}, new int[]{2}));
+		transistionsSystem.add(new State(2, false, new String[]{"v"}, new int[]{1}));
+		transistionsSystem.add(new State(3, false, new String[]{"c"}, new int[]{2, 4}));
+		transistionsSystem.add(new State(4, false, new String[]{"c"}, new int[]{8}));
+		transistionsSystem.add(new State(5, false, new String[]{"c"}, new int[]{3,7,8}));
+		transistionsSystem.add(new State(6, true, new String[]{"v"}, new int[]{7}));
+		transistionsSystem.add(new State(7, false, new String[]{"v"}, new int[]{6}));
+		transistionsSystem.add(new State(8, false, new String[]{"c"}, new int[]{4}));
+		
 
 		System.out.println("States in the transistion system");
 		printPretty(transistionsSystem);
 
+		// Saving the initial states
 		for(int i = 0; i < transistionsSystem.size(); i++){
 			if(transistionsSystem.get(i).initial){
 				initialStates.add(transistionsSystem.get(i));
 			}
 		}
-
+		
+		// Calculating EX with all the states, to control whether 
+		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
 			ArrayList<State> temp = new ArrayList<>();
 			temp.add(transistionsSystem.get(i));
-			System.out.println("\nVi printer EF for "+ (i+1));
+			System.out.println("\nPrinting results of EX for "+ (i+1));
+			printPretty(ctlEX(temp));
+		}
+
+		// Calculating EF with all the states, to control whether 
+		// it's computed correct or not
+		for(int i = 0; i < transistionsSystem.size(); i++){
+			ArrayList<State> temp = new ArrayList<>();
+			temp.add(transistionsSystem.get(i));
+			System.out.println("\nPrinting results of EF for "+ (i+1));
 			printPretty(ctlEF(temp));
 		}
-
+		
+		// Calculating AX with all the states, to control whether 
+		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
 			ArrayList<State> temp = new ArrayList<>();
 			temp.add(transistionsSystem.get(i));
-			System.out.println("\nVi printer AG for "+ (i+1));
+			System.out.println("\nPrinting results of AX for "+ (i+1));
+			printPretty(ctlAX(temp));
+		}
+		
+		// Calculating AG with all the states, to control whether 
+		// it's computed correct or not
+		for(int i = 0; i < transistionsSystem.size(); i++){
+			ArrayList<State> temp = new ArrayList<>();
+			temp.add(transistionsSystem.get(i));
+			System.out.println("\nPrinting results of AG for "+ (i+1));
 			printPretty(ctlAG(temp));
 		}
-
 	}
 
+	// The wonderful pretty printer
 	public void printPretty(ArrayList<State> arrayList) {
 		if(arrayList.isEmpty()){ 
 			System.out.println("|--- No Values ---|"); 
