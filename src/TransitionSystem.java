@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class TransitionSystem {
 
 	public ArrayList<State> transistionsSystem;
+	public ArrayList<State> initialStates;
 
 	public static void main(String[] args) {
 
@@ -19,14 +20,21 @@ public class TransitionSystem {
 	public TransitionSystem() {
 
 		transistionsSystem = new ArrayList<State>();
+		initialStates = new ArrayList<State>();
 
 		transistionsSystem.add(new State(1, true, new String[]{"v"}, new int[]{2}));
 		transistionsSystem.add(new State(2, false, new String[]{"v"}, new int[]{1, 4}));
 		transistionsSystem.add(new State(3, false, new String[]{"c"}, new int[]{4}));
 		transistionsSystem.add(new State(4, false, new String[]{"c"}, new int[]{3}));
 		printPretty(transistionsSystem);
+		
+		for(int i = 0; i < transistionsSystem.size(); i++){
+			if(transistionsSystem.get(i).initial){
+				initialStates.add(transistionsSystem.get(i));
+			}
+		}
 
-		ArrayList<State> foo = ctlAP(new String[]{"c"});
+		ArrayList<State> foo = ctlAP(new String[]{"v", "c"});
 		System.out.println(Arrays.deepToString(foo.toArray(new State[foo.size()])));
 		printPretty(foo);
 
@@ -34,6 +42,8 @@ public class TransitionSystem {
 		//printPretty(ctlEX(foo));
 
 		System.out.println("\n Dette er AX");
+		ArrayList<State> uuh = new ArrayList<State>();
+		uuh.add(transistionsSystem.get(0));
 		printPretty(ctlAX(foo));
 		
 		System.out.println();
@@ -52,6 +62,7 @@ public class TransitionSystem {
 		}
 
 
+		System.out.println(checkInitialStates(ctlEX(ctlAG(ctlAP(new String[]{"c"})))));
 
 	}
 
@@ -143,13 +154,35 @@ public class TransitionSystem {
 
 	public ArrayList<State> ctlAG(ArrayList<State> arrayList) {
 		ArrayList<State> result = new ArrayList<>();
-		ArrayList<State> temp = ctlEF(arrayList);
-		result.addAll(notPhi(temp));
-
-
-
+		
+		for(State s : arrayList){
+			ArrayList<State> tempList = canReach(s, new ArrayList<State>());
+			for(State tempState : tempList){
+				if(!s.strings[0].equals(tempState.strings[0])){
+					tempList.clear();
+					break;
+				}
+			}
+			result.removeAll(tempList);
+			result.addAll(tempList);
+		}
+		
 		return result;
 
+	}
+	
+	public ArrayList<State> canReach(State s, ArrayList<State> visited){
+		ArrayList<State> reachable = new ArrayList<>();
+		visited.add(s);
+		reachable.add(s);
+		
+		for(int i = 0; i < s.integerArray.length; i++){
+			State temp = transistionsSystem.get(s.integerArray[i]-1);
+			if(!visited.contains(temp)){
+				reachable.addAll(canReach(temp,visited));
+			}
+		}
+		return reachable;
 	}
 
 	public ArrayList<State> notPhi(ArrayList<State> stateArrayList){
@@ -185,27 +218,24 @@ public class TransitionSystem {
 		return false;
 	}
 
-	public ArrayList<State> tt(ArrayList ts){
-
+	public ArrayList<State> tt(ArrayList<State> ts){
 	    ts = new ArrayList<State>();
 	    ts = transistionsSystem;
 
 	    return ts;
-
     }
 
     public ArrayList<State> and(ArrayList<State> list1, ArrayList<State> list2){
-
 	    ArrayList<State> temp = new ArrayList<>();
-
 	    for(int i = 0; i < list1.size(); i++){
 	        if(list1.contains(list2.get(i))){
 	            temp.add(list2.get(i));
             }
-
         }
-
         return temp;
     }
-
+    
+    public boolean checkInitialStates(ArrayList<State> states){
+    	return states.containsAll(initialStates);
+    }
 }
