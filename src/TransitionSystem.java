@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * Created by Matos on 21-03-2017.
@@ -65,14 +66,6 @@ public class TransitionSystem {
         return temp;
     }
 
-
-    public ArrayList ctlAG(ArrayList<State> arrayList) {
-
-
-        return null;
-
-    }
-
     public ArrayList ctlEX(ArrayList<State> arrayList) {
 
         ArrayList<State> tempList = new ArrayList<>();
@@ -91,6 +84,12 @@ public class TransitionSystem {
         }
 
         return tempList;
+    }
+
+    public ArrayList ctlEF(ArrayList<String > stateArrayList){
+
+
+
     }
 
 
@@ -118,6 +117,13 @@ public class TransitionSystem {
         }
         return tempList;
     }
+    public ArrayList ctlAG(ArrayList<State> arrayList) {
+
+
+        return null;
+
+    }
+
 
     public boolean containsFalse(boolean[] booleanArray){
 
@@ -129,6 +135,33 @@ public class TransitionSystem {
         }
         return false;
     }
+
+    public ArrayList notPhi(ArrayList<State> stateArrayList){
+
+        ArrayList<State> temp = new ArrayList<>();
+        temp.addAll(transistionsSystem);
+        temp.removeAll(stateArrayList);
+
+        return temp;
+    }
+
+    public ArrayList DFS(State state){
+
+        ArrayList<State> reachable = new ArrayList<>();
+        LinkedList<State> que = new LinkedList<>();
+
+
+        for(int i = 0; i < state.integerArray.length; i++){
+            int stateNo = state.integerArray[i];
+            State temp = transistionsSystem.get(stateNo-1);
+            que.add(temp);
+
+        }
+
+
+
+    }
+
 
 }
 
