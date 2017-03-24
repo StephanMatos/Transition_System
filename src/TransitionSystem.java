@@ -1,7 +1,5 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 /**
  * Created by Matos on 21-03-2017.
@@ -27,7 +25,7 @@ public class TransitionSystem {
 		transistionsSystem.add(new State(4, false, new String[]{"c"}, new int[]{3}));
 		printPretty(transistionsSystem);
 
-		ArrayList foo = ctlAP(new String[]{"c"});
+		ArrayList<State> foo = ctlAP(new String[]{"c"});
 		System.out.println(Arrays.deepToString(foo.toArray(new State[foo.size()])));
 		printPretty(foo);
 
