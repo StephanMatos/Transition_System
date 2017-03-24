@@ -37,21 +37,6 @@ public class TransitionSystem {
         System.out.println("\n Dette er AX");
         printPretty(ctlAX(foo));
 
-        for(int i = 0; i < transistionsSystem.size(); i++){
-            ArrayList<State> temp = new ArrayList<>();
-            temp.add(transistionsSystem.get(i));
-            System.out.println("Vi printer EF for "+ i+1);
-            printPretty(ctlEF(temp));
-        }
-        System.out.println();
-        for(int i = 0; i < transistionsSystem.size(); i++){
-            ArrayList<State> temp = new ArrayList<>();
-            temp.add(transistionsSystem.get(i));
-            System.out.println("Vi printer AG for "+ (i+1));
-            printPretty(ctlAG(temp));
-        }
-
-
 
     }
 
@@ -101,18 +86,12 @@ public class TransitionSystem {
         return tempList;
     }
 
-    public ArrayList ctlEF(ArrayList<State> stateArrayList){
+    public ArrayList ctlEF(ArrayList<String > stateArrayList){
 
-        ArrayList<State> result = new ArrayList<>();
 
-        for(State s : stateArrayList){
-            ArrayList<State> temp = DFS(s,new ArrayList<State>());
-            result.removeAll(temp);
-            result.addAll(temp);
-        }
 
-    return result;
     }
+
 
     public ArrayList ctlAX(ArrayList<State> stateList){
 
@@ -138,47 +117,13 @@ public class TransitionSystem {
         }
         return tempList;
     }
-
     public ArrayList ctlAG(ArrayList<State> arrayList) {
-        ArrayList<State> result = new ArrayList<>();
-        ArrayList<State> temp = ctlEF(arrayList);
-        for (int i = 0; i < transistionsSystem.size(); i++) {
-            if(temp.contains(transistionsSystem.get(i))) {
 
-            }
-            else {
-                result.add(transistionsSystem.get(i));
-            }
-        }
 
-        return result;
+        return null;
 
     }
 
-    public ArrayList notPhi(ArrayList<State> stateArrayList){
-
-        ArrayList<State> temp = new ArrayList<>();
-        temp.addAll(transistionsSystem);
-        temp.removeAll(stateArrayList);
-
-        return temp;
-    }
-
-    public ArrayList<State> DFS(State state, ArrayList<State> visited){
-        ArrayList<State> reachable = new ArrayList<>();
-        visited.add(state);
-        reachable.add(state);
-
-        for(int i = 0; i < state.integerArray.length; i++){
-            int stateNo = state.integerArray[i];
-            State temp = transistionsSystem.get(stateNo-1);
-            if(!visited.contains(temp)){
-                reachable.addAll(DFS(temp,visited));
-            }
-
-        }
-        return reachable;
-    }
 
     public boolean containsFalse(boolean[] booleanArray){
 
@@ -191,7 +136,32 @@ public class TransitionSystem {
         return false;
     }
 
+    public ArrayList notPhi(ArrayList<State> stateArrayList){
 
+        ArrayList<State> temp = new ArrayList<>();
+        temp.addAll(transistionsSystem);
+        temp.removeAll(stateArrayList);
+
+        return temp;
+    }
+
+    public ArrayList DFS(State state){
+
+        ArrayList<State> reachable = new ArrayList<>();
+        LinkedList<State> que = new LinkedList<>();
+
+
+        for(int i = 0; i < state.integerArray.length; i++){
+            int stateNo = state.integerArray[i];
+            State temp = transistionsSystem.get(stateNo-1);
+            que.add(temp);
+            reachable.
+
+        }
+
+
+
+    }
 
 
 }
