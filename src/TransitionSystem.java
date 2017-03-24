@@ -139,14 +139,13 @@ public class TransitionSystem {
 		}
 		return tempList;
 	}
+	
+	
 
 	public ArrayList<State> ctlAG(ArrayList<State> arrayList) {
 		ArrayList<State> result = new ArrayList<>();
 		ArrayList<State> temp = ctlEF(arrayList);
 		result.addAll(notPhi(temp));
-
-
-
 		return result;
 
 	}
@@ -170,7 +169,6 @@ public class TransitionSystem {
 				reachable.addAll(DFS(s,visited));
 			}
 		}
-
 		return reachable;
 	}
 
