@@ -1,3 +1,4 @@
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -137,13 +138,16 @@ public class TransitionSystem {
 		}
 		return tempList;
 	}
-	
-	
+
+
 
 	public ArrayList<State> ctlAG(ArrayList<State> arrayList) {
 		ArrayList<State> result = new ArrayList<>();
 		ArrayList<State> temp = ctlEF(arrayList);
 		result.addAll(notPhi(temp));
+
+
+
 		return result;
 
 	}
@@ -180,4 +184,28 @@ public class TransitionSystem {
 		}
 		return false;
 	}
+
+	public ArrayList<State> tt(ArrayList ts){
+
+	    ts = new ArrayList<State>();
+	    ts = transistionsSystem;
+
+	    return ts;
+
+    }
+
+    public ArrayList<State> and(ArrayList<State> list1, ArrayList<State> list2){
+
+	    ArrayList<State> temp = new ArrayList<>();
+
+	    for(int i = 0; i < list1.size(); i++){
+	        if(list1.contains(list2.get(i))){
+	            temp.add(list2.get(i));
+            }
+
+        }
+
+        return temp;
+    }
+
 }
