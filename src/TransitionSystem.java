@@ -19,7 +19,6 @@ public class TransitionSystem {
     public TransitionSystem() {
 
         transistionsSystem = new ArrayList<State>();
-        System.out.println(transistionsSystem);
 
         transistionsSystem.add(new State(1, true, new String[]{"v"}, new int[]{2}));
         transistionsSystem.add(new State(2, false, new String[]{"v"}, new int[]{1, 4}));
@@ -30,6 +29,12 @@ public class TransitionSystem {
         ArrayList foo = ctlAP(new String[]{"c"});
         System.out.println(Arrays.deepToString(foo.toArray(new State[foo.size()])));
         printPretty(foo);
+
+        //System.out.println("\n Dette er EX");
+        //printPretty(ctlEX(foo));
+
+        System.out.println("\n Dette er AX");
+        printPretty(ctlAX(foo));
 
 
     }
@@ -107,13 +112,22 @@ public class TransitionSystem {
                     }
                 }
             }
-            if(!Arrays.asList(trueForALL).contains(false)){
+            if(!containsFalse(trueForALL)){
                 tempList.add(temp);
+            }
+        }
+        return tempList;
+    }
+
+    public boolean containsFalse(boolean[] booleanArray){
+
+        for(int i = 0; i < booleanArray.length; i++){
+            if(!booleanArray[i]){
+                return true;
             }
 
         }
-        return tempList;
-
+        return false;
     }
 
 }
