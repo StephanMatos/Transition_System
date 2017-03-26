@@ -22,7 +22,7 @@ public class TransitionSystem {
 		transistionsSystem.add(new State(6, true, new String[]{"v"}, new int[]{7}));
 		transistionsSystem.add(new State(7, false, new String[]{"v"}, new int[]{6}));
 		transistionsSystem.add(new State(8, false, new String[]{"c"}, new int[]{4}));
-		
+
 
 		System.out.println("States in the transistion system");
 		printPretty(transistionsSystem);
@@ -33,7 +33,7 @@ public class TransitionSystem {
 				initialStates.add(transistionsSystem.get(i));
 			}
 		}
-		
+		System.out.println("\n----- Initial tests of CTL implementation -----");
 		// Calculating EX with all the states, to control whether 
 		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
@@ -51,7 +51,7 @@ public class TransitionSystem {
 			System.out.println("\nPrinting results of EF for "+ (i+1));
 			printPretty(ctlEF(temp));
 		}
-		
+
 		// Calculating AX with all the states, to control whether 
 		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
@@ -60,7 +60,7 @@ public class TransitionSystem {
 			System.out.println("\nPrinting results of AX for "+ (i+1));
 			printPretty(ctlAX(temp));
 		}
-		
+
 		// Calculating AG with all the states, to control whether 
 		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
@@ -69,7 +69,7 @@ public class TransitionSystem {
 			System.out.println("\nPrinting results of AG for "+ (i+1));
 			printPretty(ctlAG(temp));
 		}
-		
+		System.out.println("\n------------ End of initial tests  ------------\n");
 		modelChecking();
 	}
 
@@ -84,11 +84,11 @@ public class TransitionSystem {
 				} else {
 					System.out.println(s.number + " | " + s.initial + " | " + Arrays.deepToString(s.strings) + " | " + Arrays.toString(s.integerArray));
 				}
-				
+
 			}
 		}
 	}
-	
+
 	// Returns a arrayList of all states in the TS with one of the input label
 	public ArrayList<State> ctlAP(String[] AP) {
 
@@ -358,6 +358,5 @@ public class TransitionSystem {
 		System.out.println("\nPrinting checkInitialStates with previous results as input");
 		System.out.println(checkInitialStates(testing));
 		System.out.println("\n--------- End of this test ---------");
-		
 	}
 }
