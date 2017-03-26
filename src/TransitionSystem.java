@@ -77,7 +77,12 @@ public class TransitionSystem {
 			System.out.println("|--- No Values ---|"); 
 		} else {
 			for (State s : arrayList) {
-				System.out.println(s.number + " | " + s.initial + " | " + Arrays.deepToString(s.strings) + " | " + Arrays.toString(s.integerArray));
+				if( s.initial) {
+					System.out.println(s.number + " | " + s.initial + "  | " + Arrays.deepToString(s.strings) + " | " + Arrays.toString(s.integerArray));
+				} else {
+					System.out.println(s.number + " | " + s.initial + " | " + Arrays.deepToString(s.strings) + " | " + Arrays.toString(s.integerArray));
+				}
+				
 			}
 		}
 	}
