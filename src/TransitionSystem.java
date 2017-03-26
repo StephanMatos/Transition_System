@@ -225,8 +225,9 @@ public class TransitionSystem {
 		return false;
 	}
 
-	public ArrayList<State> tt(ArrayList<State> ts){
-		ts = new ArrayList<State>();
+	public ArrayList<State> tt(){
+
+		ArrayList <State> ts = new ArrayList<State>();
 		ts = transistionsSystem;
 
 		return ts;
