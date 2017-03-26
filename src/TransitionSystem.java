@@ -107,6 +107,11 @@ public class TransitionSystem {
 		return temp;
 	}
 
+	/* Input is the states we wish to reach in one move.
+	 * The method looks at all the states in the transition system,
+	 * and if a state contains one of the input states as a neighbor,
+	 * it is added to the output list.
+	 */
 	public ArrayList<State> ctlEX(ArrayList<State> arrayList) {
 
 		ArrayList<State> tempList = new ArrayList<>();
@@ -115,7 +120,6 @@ public class TransitionSystem {
 			State temp = transistionsSystem.get(i);
 			for (State s : arrayList) {
 				for (int j = 0; j < temp.integerArray.length; j++) {
-
 					if (temp.integerArray[j] == s.number) {
 						tempList.add(temp);
 						break;
@@ -123,7 +127,6 @@ public class TransitionSystem {
 				}
 			}
 		}
-
 		return tempList;
 	}
 
