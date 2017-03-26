@@ -135,7 +135,7 @@ public class TransitionSystem {
 		ArrayList<State> result = new ArrayList<>();
 
 		for(State s : stateArrayList){
-			ArrayList<State> temp = DFS(s,new ArrayList<State>());
+			ArrayList<State> temp = whoCanReachMe(s,new ArrayList<State>());
 			result.removeAll(temp);
 			result.addAll(temp);
 		}
@@ -177,7 +177,7 @@ public class TransitionSystem {
 		ArrayList<State> result = new ArrayList<>();
 
 		for(State s : arrayList){
-			ArrayList<State> tempList = canReach(s, new ArrayList<State>());
+			ArrayList<State> tempList = whoCanIReach(s, new ArrayList<State>());
 			for(State tempState : tempList){
 				if(!s.strings[0].equals(tempState.strings[0])){
 					tempList.clear();
@@ -192,15 +192,14 @@ public class TransitionSystem {
 
 	}
 
-	public ArrayList<State> canReach(State s, ArrayList<State> visited){
+	public ArrayList<State> whoCanIReach(State s, ArrayList<State> visited){
 		ArrayList<State> reachable = new ArrayList<>();
 		visited.add(s);
 		reachable.add(s);
-
 		for(int i = 0; i < s.integerArray.length; i++){
 			State temp = transistionsSystem.get(s.integerArray[i]-1);
 			if(!visited.contains(temp)){
-				reachable.addAll(canReach(temp,visited));
+				reachable.addAll(whoCanIReach(temp,visited));
 			}
 		}
 		return reachable;
@@ -215,14 +214,13 @@ public class TransitionSystem {
 		return temp;
 	}
 
-	public ArrayList<State> DFS(State state, ArrayList<State> visited){
+	public ArrayList<State> whoCanReachMe(State state, ArrayList<State> visited){
 		ArrayList<State> reachable = new ArrayList<>();
 		visited.add(state);
 		reachable.add(state);
-		ctlEX(reachable);
 		for(State s : ctlEX(reachable)){
 			if(!visited.contains(s)){
-				reachable.addAll(DFS(s,visited));
+				reachable.addAll(whoCanReachMe(s,visited));
 			}
 		}
 		return reachable;
