@@ -283,6 +283,11 @@ public class TransitionSystem {
 		return ts;
 	}
 
+	/*
+	 * Input is two lists of states.
+	 * Output is a list containing all the states,
+	 * which were present in both input lists.
+	 */
 	public ArrayList<State> and(ArrayList<State> list1, ArrayList<State> list2){
 		ArrayList<State> temp = new ArrayList<>();
 		for(int i = 0; i < list1.size(); i++){
