@@ -227,15 +227,15 @@ public class TransitionSystem {
 	 * Is a recursive DFS-implementation.
 	 */
 	public ArrayList<State> whoCanReachMe(State state, ArrayList<State> visited){
-		ArrayList<State> reachable = new ArrayList<>();
+		ArrayList<State> canReachMe = new ArrayList<>();
 		visited.add(state);
-		reachable.add(state);
-		for(State s : ctlEX(reachable)){
+		canReachMe.add(state);
+		for(State s : ctlEX(canReachMe)){
 			if(!visited.contains(s)){
-				reachable.addAll(whoCanReachMe(s,visited));
+				canReachMe.addAll(whoCanReachMe(s,visited));
 			}
 		}
-		return reachable;
+		return canReachMe;
 	}
 
 	public boolean containsFalse(boolean[] booleanArray){
