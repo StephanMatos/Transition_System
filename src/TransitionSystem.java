@@ -69,6 +69,8 @@ public class TransitionSystem {
 			System.out.println("\nPrinting results of AG for "+ (i+1));
 			printPretty(ctlAG(temp));
 		}
+		
+		modelChecking();
 	}
 
 	// The wonderful pretty printer
@@ -310,11 +312,52 @@ public class TransitionSystem {
 	}
 
 	/*
-	 *  Doing some model checking runs.
+	 *  Doing some model checking runs stepwise.
 	 *  Please keep in mind that we have a different transition system.
 	 */
 	public void modelChecking(){
+		System.out.println("\nBeginning model checking tests");
 		// Doing the example from the assignment example
+		ArrayList<State> testing = new ArrayList<State>();
+		// Testing AP
+		String[] stringTest = {"c"};
+		testing = ctlAP(stringTest);
+		System.out.println("\nPrinting ctlAP with " + Arrays.toString(stringTest) + " as input");
+		printPretty(testing);
+		// Testing AG
+		testing = ctlAG(testing);
+		System.out.println("\nPrinting ctlAG with previous results as input");
+		printPretty(testing);
+		//Testing EX
+		testing = ctlEX(testing);
+		System.out.println("\nPrinting ctlEX with previous results as input");
+		printPretty(testing);
+		//Testing initial states
+		System.out.println("\nPrinting checkInitialStates with previous results as input");
+		System.out.println(checkInitialStates(testing));
+		System.out.println("\n--------- End of this test ---------");
+		System.out.println("\n\n------------- New test -------------");
+		// Testing AP
+		stringTest[0] = "v";
+		testing = ctlAP(stringTest);
+		System.out.println("\nPrinting ctlAP with " + Arrays.toString(stringTest) + " as input");
+		printPretty(testing);
+		// Testing EF
+		testing = ctlEF(testing);
+		System.out.println("\nPrinting ctlEF with previous results as input");
+		printPretty(testing);
+		// Testing AX
+		testing = ctlAX(testing);
+		System.out.println("\nPrinting ctlAX with previous results as input");
+		printPretty(testing);
+		// Testing AG
+		testing = ctlAG(testing);
+		System.out.println("\nPrinting ctlAG with previous results as input");
+		printPretty(testing);
+		//Testing initial states
+		System.out.println("\nPrinting checkInitialStates with previous results as input");
+		System.out.println(checkInitialStates(testing));
+		System.out.println("\n--------- End of this test ---------");
 		
 	}
 }
