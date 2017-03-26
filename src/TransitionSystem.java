@@ -272,6 +272,9 @@ public class TransitionSystem {
 		return false;
 	}
 
+	/*
+	 * Returns all states in the transition system
+	 */
 	public ArrayList<State> tt(){
 
 		ArrayList <State> ts = new ArrayList<State>();
