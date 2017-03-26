@@ -179,6 +179,17 @@ public class TransitionSystem {
 		return tempList;
 	}
 
+	/*
+	 * Input is a list of the start states, which we wish to test,
+	 * if they can reach a state, with an other label.
+	 * Output is a list of the states, which cannot reach 
+	 * a state, with another label.
+	 * It calls the method whoCanIReach, to get all the reachable 
+	 * states of the current state, and afterwards it checks whether 
+	 * all the states have the same label, if not that list is 
+	 * deleted, as it doen't fullfill the requirements,
+	 * otherwise the result is saved and duplicants are removed.
+	 */
 	public ArrayList<State> ctlAG(ArrayList<State> arrayList) {
 		ArrayList<State> result = new ArrayList<>();
 
