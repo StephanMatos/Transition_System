@@ -209,6 +209,13 @@ public class TransitionSystem {
 
 	}
 
+	/*
+	 * Takes a state, from which we want to know, 
+	 * which states it can reach, 
+	 * and a list of already visited states as input.
+	 * Returns a list of states, which it can reach.
+	 * Is a recursive DFS-implementation.
+	 */
 	public ArrayList<State> whoCanIReach(State s, ArrayList<State> visited){
 		ArrayList<State> reachable = new ArrayList<>();
 		visited.add(s);
