@@ -229,6 +229,11 @@ public class TransitionSystem {
 		return reachable;
 	}
 
+	/*
+	 * Input is a arraylist of states.
+	 * Output is a arraylist of all the states in the transition system,
+	 * not in the input list.
+	 */
 	public ArrayList<State> notPhi(ArrayList<State> stateArrayList){
 
 		ArrayList<State> temp = new ArrayList<>();
