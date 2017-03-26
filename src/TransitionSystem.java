@@ -133,7 +133,7 @@ public class TransitionSystem {
 	/*
 	 * Input is an arraylist of the states we wish to reach, 
 	 * output is the states, which can reach these states.
-	 * for each state in the input the whoCanRachMe method is called.
+	 * For each state in the input the whoCanRachMe method is called.
 	 * whoCanReachMe is an DFS method. After each call, the list
 	 * is cleared of duplicates.
 	 */
@@ -146,7 +146,6 @@ public class TransitionSystem {
 			result.removeAll(temp);
 			result.addAll(temp);
 		}
-
 		return result;
 	}
 
@@ -221,6 +220,12 @@ public class TransitionSystem {
 		return temp;
 	}
 
+	/*
+	 * Takes a state, which we wish to reach, 
+	 * and a list of already visited states as input.
+	 * Returns a list of states, which can reach it.
+	 * Is a recursive DFS-implementation.
+	 */
 	public ArrayList<State> whoCanReachMe(State state, ArrayList<State> visited){
 		ArrayList<State> reachable = new ArrayList<>();
 		visited.add(state);
