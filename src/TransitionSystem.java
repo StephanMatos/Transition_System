@@ -130,6 +130,13 @@ public class TransitionSystem {
 		return tempList;
 	}
 
+	/*
+	 * Input is an arraylist of the states we wish to reach, 
+	 * output is the states, which can reach these states.
+	 * for each state in the input the whoCanRachMe method is called.
+	 * whoCanReachMe is an DFS method. After each call, the list
+	 * is cleared of duplicates.
+	 */
 	public ArrayList<State> ctlEF(ArrayList<State> stateArrayList){
 
 		ArrayList<State> result = new ArrayList<>();
