@@ -143,6 +143,11 @@ public class TransitionSystem {
 		return result;
 	}
 
+	/* Input is the states we wish to reach in one move.
+	 * The method looks at all the states in the transition system,
+	 * and if a state only contains input states as neighbors,
+	 * it is added to the output list.
+	 */
 	public ArrayList<State> ctlAX(ArrayList<State> stateList){
 
 		ArrayList<State> tempList = new ArrayList<>();
