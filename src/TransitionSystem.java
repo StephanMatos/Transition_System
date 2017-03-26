@@ -86,7 +86,8 @@ public class TransitionSystem {
 			}
 		}
 	}
-
+	
+	// Returns a arrayList of all states in the TS with one of the input label
 	public ArrayList<State> ctlAP(String[] AP) {
 
 		ArrayList<State> temp = new ArrayList<State>();
