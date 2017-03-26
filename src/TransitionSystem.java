@@ -298,7 +298,23 @@ public class TransitionSystem {
 		return temp;
 	}
 
+	/*
+	 * Input is a list of states
+	 * Output is a boolean.
+	 * It checks if the input list contains all the initial states
+	 * (which are stored in the list initialStates), if it does,
+	 * true is returned, else false is returned.
+	 */
 	public boolean checkInitialStates(ArrayList<State> states){
 		return states.containsAll(initialStates);
+	}
+
+	/*
+	 *  Doing some model checking runs.
+	 *  Please keep in mind that we have a different transition system.
+	 */
+	public void modelChecking(){
+		// Doing the example from the assignment example
+		
 	}
 }
