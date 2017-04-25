@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 public class TransitionSystem {
 
-	public ArrayList<State> transistionsSystem;
-	public ArrayList<State> initialStates;
+	public ArrayList<Node> transistionsSystem;
+	public ArrayList<Node> initialStates;
 
 	public static void main(String[] args) {
 		new TransitionSystem();
@@ -11,17 +11,17 @@ public class TransitionSystem {
 
 	public TransitionSystem() {
 
-		transistionsSystem = new ArrayList<State>();
-		initialStates = new ArrayList<State>();
+		transistionsSystem = new ArrayList<Node>();
+		initialStates = new ArrayList<Node>();
 
-		transistionsSystem.add(new State(1, false, new String[]{"c"}, new int[]{2}));
-		transistionsSystem.add(new State(2, false, new String[]{"v"}, new int[]{1}));
-		transistionsSystem.add(new State(3, false, new String[]{"c"}, new int[]{2, 4}));
-		transistionsSystem.add(new State(4, false, new String[]{"c"}, new int[]{8}));
-		transistionsSystem.add(new State(5, false, new String[]{"c"}, new int[]{3,7,8}));
-		transistionsSystem.add(new State(6, true, new String[]{"v"}, new int[]{7}));
-		transistionsSystem.add(new State(7, false, new String[]{"v"}, new int[]{6}));
-		transistionsSystem.add(new State(8, false, new String[]{"c"}, new int[]{4}));
+		transistionsSystem.add(new Node(1, false, new String[]{"c"}, new int[]{2}));
+		transistionsSystem.add(new Node(2, false, new String[]{"v"}, new int[]{1}));
+		transistionsSystem.add(new Node(3, false, new String[]{"c"}, new int[]{2, 4}));
+		transistionsSystem.add(new Node(4, false, new String[]{"c"}, new int[]{8}));
+		transistionsSystem.add(new Node(5, false, new String[]{"c"}, new int[]{3,7,8}));
+		transistionsSystem.add(new Node(6, true, new String[]{"v"}, new int[]{7}));
+		transistionsSystem.add(new Node(7, false, new String[]{"v"}, new int[]{6}));
+		transistionsSystem.add(new Node(8, false, new String[]{"c"}, new int[]{4}));
 
 
 		System.out.println("States in the transistion system");
@@ -37,7 +37,7 @@ public class TransitionSystem {
 		// Calculating EX with all the states, to control whether 
 		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
-			ArrayList<State> temp = new ArrayList<>();
+			ArrayList<Node> temp = new ArrayList<>();
 			temp.add(transistionsSystem.get(i));
 			System.out.println("\nPrinting results of EX for "+ (i+1));
 			printPretty(ctlEX(temp));
@@ -46,7 +46,7 @@ public class TransitionSystem {
 		// Calculating EF with all the states, to control whether 
 		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
-			ArrayList<State> temp = new ArrayList<>();
+			ArrayList<Node> temp = new ArrayList<>();
 			temp.add(transistionsSystem.get(i));
 			System.out.println("\nPrinting results of EF for "+ (i+1));
 			printPretty(ctlEF(temp));
@@ -55,7 +55,7 @@ public class TransitionSystem {
 		// Calculating AX with all the states, to control whether 
 		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
-			ArrayList<State> temp = new ArrayList<>();
+			ArrayList<Node> temp = new ArrayList<>();
 			temp.add(transistionsSystem.get(i));
 			System.out.println("\nPrinting results of AX for "+ (i+1));
 			printPretty(ctlAX(temp));
@@ -64,7 +64,7 @@ public class TransitionSystem {
 		// Calculating AG with all the states, to control whether 
 		// it's computed correct or not
 		for(int i = 0; i < transistionsSystem.size(); i++){
-			ArrayList<State> temp = new ArrayList<>();
+			ArrayList<Node> temp = new ArrayList<>();
 			temp.add(transistionsSystem.get(i));
 			System.out.println("\nPrinting results of AG for "+ (i+1));
 			printPretty(ctlAG(temp));
@@ -74,11 +74,11 @@ public class TransitionSystem {
 	}
 
 	// The wonderful pretty printer
-	public void printPretty(ArrayList<State> arrayList) {
+	public void printPretty(ArrayList<Node> arrayList) {
 		if(arrayList.isEmpty()){ 
 			System.out.println("|--- No Values ---|"); 
 		} else {
-			for (State s : arrayList) {
+			for (Node s : arrayList) {
 				if( s.initial) {
 					System.out.println(s.number + " | " + s.initial + "  | " + Arrays.deepToString(s.strings) + " | " + Arrays.toString(s.integerArray));
 				} else {
@@ -90,11 +90,11 @@ public class TransitionSystem {
 	}
 
 	// Returns a arrayList of all states in the TS with one of the input label
-	public ArrayList<State> ctlAP(String[] AP) {
+	public ArrayList<Node> ctlAP(String[] AP) {
 
-		ArrayList<State> temp = new ArrayList<State>();
+		ArrayList<Node> temp = new ArrayList<Node>();
 
-		for (State s : transistionsSystem) {
+		for (Node s : transistionsSystem) {
 			for (int i = 0; i < s.strings.length; i++) {
 				for (int j = 0; j < AP.length; j++) {
 
@@ -114,13 +114,13 @@ public class TransitionSystem {
 	 * and if a state contains one of the input states as a neighbor,
 	 * it is added to the output list.
 	 */
-	public ArrayList<State> ctlEX(ArrayList<State> arrayList) {
+	public ArrayList<Node> ctlEX(ArrayList<Node> arrayList) {
 
-		ArrayList<State> tempList = new ArrayList<>();
+		ArrayList<Node> tempList = new ArrayList<>();
 
 		for (int i = 0; i < transistionsSystem.size(); i++) {
-			State temp = transistionsSystem.get(i);
-			for (State s : arrayList) {
+			Node temp = transistionsSystem.get(i);
+			for (Node s : arrayList) {
 				for (int j = 0; j < temp.integerArray.length; j++) {
 					if (temp.integerArray[j] == s.number) {
 						tempList.add(temp);
@@ -139,12 +139,12 @@ public class TransitionSystem {
 	 * whoCanReachMe is an DFS method. After each call, the list
 	 * is cleared of duplicates.
 	 */
-	public ArrayList<State> ctlEF(ArrayList<State> stateArrayList){
+	public ArrayList<Node> ctlEF(ArrayList<Node> stateArrayList){
 
-		ArrayList<State> result = new ArrayList<>();
+		ArrayList<Node> result = new ArrayList<>();
 
-		for(State s : stateArrayList){
-			ArrayList<State> temp = whoCanReachMe(s,new ArrayList<State>());
+		for(Node s : stateArrayList){
+			ArrayList<Node> temp = whoCanReachMe(s,new ArrayList<Node>());
 			result.removeAll(temp);
 			result.addAll(temp);
 		}
@@ -156,15 +156,15 @@ public class TransitionSystem {
 	 * and if a state only contains input states as neighbors,
 	 * it is added to the output list.
 	 */
-	public ArrayList<State> ctlAX(ArrayList<State> stateList){
+	public ArrayList<Node> ctlAX(ArrayList<Node> stateList){
 
-		ArrayList<State> tempList = new ArrayList<>();
+		ArrayList<Node> tempList = new ArrayList<>();
 
 		for (int i = 0; i < transistionsSystem.size(); i++) {
-			State temp = transistionsSystem.get(i);
+			Node temp = transistionsSystem.get(i);
 			boolean[] trueForALL = new boolean[temp.integerArray.length];
 			Arrays.fill(trueForALL, Boolean.FALSE);
-			for (State s : stateList) {
+			for (Node s : stateList) {
 
 				for (int j = 0; j < temp.integerArray.length; j++) {
 
@@ -192,12 +192,12 @@ public class TransitionSystem {
 	 * deleted, as it doen't fullfill the requirements,
 	 * otherwise the result is saved and duplicants are removed.
 	 */
-	public ArrayList<State> ctlAG(ArrayList<State> arrayList) {
-		ArrayList<State> result = new ArrayList<>();
+	public ArrayList<Node> ctlAG(ArrayList<Node> arrayList) {
+		ArrayList<Node> result = new ArrayList<>();
 
-		for(State s : arrayList){
-			ArrayList<State> tempList = whoCanIReach(s, new ArrayList<State>());
-			for(State tempState : tempList){
+		for(Node s : arrayList){
+			ArrayList<Node> tempList = whoCanIReach(s, new ArrayList<Node>());
+			for(Node tempState : tempList){
 				if(!s.strings[0].equals(tempState.strings[0])){
 					tempList.clear();
 					break;
@@ -218,12 +218,12 @@ public class TransitionSystem {
 	 * Returns a list of states, which it can reach.
 	 * Is a recursive DFS-implementation.
 	 */
-	public ArrayList<State> whoCanIReach(State s, ArrayList<State> visited){
-		ArrayList<State> reachable = new ArrayList<>();
+	public ArrayList<Node> whoCanIReach(Node s, ArrayList<Node> visited){
+		ArrayList<Node> reachable = new ArrayList<>();
 		visited.add(s);
 		reachable.add(s);
 		for(int i = 0; i < s.integerArray.length; i++){
-			State temp = transistionsSystem.get(s.integerArray[i]-1);
+			Node temp = transistionsSystem.get(s.integerArray[i]-1);
 			if(!visited.contains(temp)){
 				reachable.addAll(whoCanIReach(temp,visited));
 			}
@@ -236,9 +236,9 @@ public class TransitionSystem {
 	 * Output is a arraylist of all the states in the transition system,
 	 * not in the input list.
 	 */
-	public ArrayList<State> notPhi(ArrayList<State> stateArrayList){
+	public ArrayList<Node> notPhi(ArrayList<Node> stateArrayList){
 
-		ArrayList<State> temp = new ArrayList<>();
+		ArrayList<Node> temp = new ArrayList<>();
 		temp.addAll(transistionsSystem);
 		temp.removeAll(stateArrayList);
 
@@ -251,11 +251,11 @@ public class TransitionSystem {
 	 * Returns a list of states, which can reach it.
 	 * Is a recursive DFS-implementation.
 	 */
-	public ArrayList<State> whoCanReachMe(State state, ArrayList<State> visited){
-		ArrayList<State> canReachMe = new ArrayList<>();
+	public ArrayList<Node> whoCanReachMe(Node state, ArrayList<Node> visited){
+		ArrayList<Node> canReachMe = new ArrayList<>();
 		visited.add(state);
 		canReachMe.add(state);
-		for(State s : ctlEX(canReachMe)){
+		for(Node s : ctlEX(canReachMe)){
 			if(!visited.contains(s)){
 				canReachMe.addAll(whoCanReachMe(s,visited));
 			}
@@ -277,9 +277,9 @@ public class TransitionSystem {
 	/*
 	 * Returns all states in the transition system
 	 */
-	public ArrayList<State> tt(){
+	public ArrayList<Node> tt(){
 
-		ArrayList <State> ts = new ArrayList<State>();
+		ArrayList <Node> ts = new ArrayList<Node>();
 		ts = transistionsSystem;
 
 		return ts;
@@ -290,8 +290,8 @@ public class TransitionSystem {
 	 * Output is a list containing all the states,
 	 * which were present in both input lists.
 	 */
-	public ArrayList<State> and(ArrayList<State> list1, ArrayList<State> list2){
-		ArrayList<State> temp = new ArrayList<>();
+	public ArrayList<Node> and(ArrayList<Node> list1, ArrayList<Node> list2){
+		ArrayList<Node> temp = new ArrayList<>();
 		for(int i = 0; i < list1.size(); i++){
 			if(list1.contains(list2.get(i))){
 				temp.add(list2.get(i));
@@ -307,7 +307,7 @@ public class TransitionSystem {
 	 * (which are stored in the list initialStates), if it does,
 	 * true is returned, else false is returned.
 	 */
-	public boolean checkInitialStates(ArrayList<State> states){
+	public boolean checkInitialStates(ArrayList<Node> states){
 		return states.containsAll(initialStates);
 	}
 
@@ -318,7 +318,7 @@ public class TransitionSystem {
 	public void modelChecking(){
 		System.out.println("\nBeginning model checking tests");
 		// Doing the example from the assignment example
-		ArrayList<State> testing = new ArrayList<State>();
+		ArrayList<Node> testing = new ArrayList<Node>();
 		// Testing AP
 		String[] stringTest = {"c"};
 		testing = ctlAP(stringTest);
